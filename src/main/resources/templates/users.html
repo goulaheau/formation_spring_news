@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Utilisateurs</title>
+  </head>
+  <body>
+    <h1>Utilisateurs</h1>
+
+    <h2>Ajouter un utilisateur</h2>
+
+    <form action="/users" th:object="${userToAdd}" method="post">
+      <label style="display: block">
+        Nom d'utilisateur :
+        <input type="text" th:field="*{username}" />
+      </label>
+
+      <label style="display: block">
+        Mot de passe :
+        <input type="text" th:field="*{password}" />
+      </label>
+
+      <button>Ajouter</button>
+    </form>
+
+    <h2>Liste des utilisateurs</h2>
+
+    <ol>
+      <li th:each="user : ${users}">
+        <span th:text="${user.username}"></span>
+
+        <form action="/users" method="get" style="display: inline">
+          <input type="hidden" name="idToDelete" th:value="${user.id}" />
+
+          <button>Supprimer</button>
+        </form>
+      </li>
+    </ol>
+  </body>
+</html>

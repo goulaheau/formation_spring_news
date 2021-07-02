@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Contenus</title>
+  </head>
+  <body>
+    <h1>Contenus</h1>
+
+    <h2>Ajouter un contenu</h2>
+
+    <form action="/contents" th:object="${contentToAdd}" method="post">
+      <label>
+        Titre :
+        <input type="text" th:field="*{title}" />
+      </label>
+
+      <label>
+        Contenu :
+
+        <select th:field="*{post}">
+          <option th:each="post : ${posts}" th:value="${post.id}" th:text="${post.title}"></option>
+        </select>
+      </label>
+
+      <button th:if="${isAdmin == true}">Ajouter</button>
+    </form>
+
+    <h2>Liste des contenus</h2>
+
+    <ol>
+      <li th:each="content : ${contents}">
+        <span th:text="${content.title}"></span>
+
+        <form action="/contents" method="get" style="display: inline">
+          <input type="hidden" name="idToDelete" th:value="${content.id}" />
+
+          <button>Supprimer</button>
+        </form>
+      </li>
+    </ol>
+  </body>
+</html>
